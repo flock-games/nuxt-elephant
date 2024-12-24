@@ -21,6 +21,9 @@ const { data: users } = await useSanityQuery<SanityDocument[]>(
 const MAX_STEALS = 3;
 
 const gifts = ref(users.value?.map((user: any) => user.broughtGift));
+console.log(gifts.value);
+
+const isGameOver = computed(() => currentPlayer.value === undefined);
 
 const currentPlayer = computed(() => {
   const playerList = users.value;
@@ -46,6 +49,7 @@ const assignGift = async (giftId: string, isSteal: boolean) => {
 
   console.log(updatedGift);
 
+  console.log(giftId);
   const giftIndex = gifts.value?.findIndex((gift: any) => gift._id === giftId);
   if (giftIndex) {
     console.log("DONE UPDATING");
@@ -69,8 +73,14 @@ const giftForUser = (user: any) =>
       <h1 v-if="game.name" class="text-4xl font-bold mb-8">
         {{ game.name }}
       </h1>
+
+      <h2 v-if="isGameOver" class="text-xl font-semibold">Game over!</h2>
+
       <div class="flex w-full">
-        <ul class="flex-1 flex flex-col gap-y-4">
+        <ul
+          class="flex-1 flex flex-col gap-y-4"
+          :class="{ 'opacity-50': isGameOver }"
+        >
           <li v-for="user in users" :key="user._id">
             <h2
               class="text-xl font-semibold"
@@ -81,6 +91,7 @@ const giftForUser = (user: any) =>
             </h2>
           </li>
         </ul>
+
         <ul class="flex-1 flex flex-col gap-y-4">
           <li v-for="(gift, index) in gifts" :key="gift._id">
             <OpenedGift
@@ -89,6 +100,7 @@ const giftForUser = (user: any) =>
               :gift="gift"
               :steals-remaining="MAX_STEALS - gift.numTimesStolen"
               :owner-name="userFromId(gift.owner._ref)?.name"
+              :is-game-over="isGameOver"
             />
             <UnopenedGift
               v-else

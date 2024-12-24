@@ -5,6 +5,7 @@ const props = defineProps({
   gift: Object,
   stealsRemaining: Number,
   ownerName: String,
+  isGameOver: Boolean,
 });
 
 const emit = defineEmits({
@@ -12,6 +13,12 @@ const emit = defineEmits({
 });
 
 const sanity = useSanity();
+
+const canSteal = computed(() => {
+  return (
+    !props.isGameOver && props.stealsRemaining && props.stealsRemaining > 0
+  );
+});
 
 const steal = () => {
   emit("steal", props.gift!._id);
@@ -25,23 +32,27 @@ const builder = imageUrlBuilder(sanity.client);
 </script>
 
 <template>
-  <div>
+  <div
+    class="flex flex-col items-center gap-y-2 mb-8"
+    :class="{ 'opacity-75': !canSteal }"
+  >
     {{ gift!.name }}
     <br />
     <img :src="urlFor(gift!.image).width(200).url()" />
     <div v-if="ownerName">
       {{ ownerName }}
-      <br />
     </div>
-    <span v-if="stealsRemaining">{{ stealsRemaining }} steals remaining</span>
-    <span v-else>LOCKED</span>
-    <br />
+
     <button
-      v-if="stealsRemaining"
+      v-if="canSteal"
       @click="steal"
       class="bg-red-500 text-white px-2 py-1 rounded"
     >
       Steal
     </button>
+    <em v-if="canSteal" class="text-sm"
+      >{{ stealsRemaining }} steals remaining</em
+    >
+    <span v-else>LOCKED</span>
   </div>
 </template>

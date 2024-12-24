@@ -13,7 +13,7 @@ const open = () => {
 };
 </script>
 <template>
-  <div>
+  <div class="flex flex-col items-center gap-y-4 mb-8">
     <h2 class="text-xl font-semibold">Gift {{ giftNumber }}</h2>
     <img src="~/assets/gift.png" alt="Discover Nuxt 3" />
 
