@@ -5,16 +5,12 @@ const GAMES_QUERY = groq`*[
   _type == "game"
 ]{_id, name}`;
 
-const USERS_QUERY = groq`*[
-  _type == "user"
-]| order(order asc){_id, name, order}`;
-
 const GIFTS_QUERY = groq`*[
   _type == "gift"
 ]{_id, url, owner->{name}}`;
 
 const { data: games } = await useSanityQuery<SanityDocument[]>(GAMES_QUERY);
-const { data: users } = await useSanityQuery<SanityDocument[]>(USERS_QUERY);
+
 const { data: gifts } = await useSanityQuery<SanityDocument[]>(GIFTS_QUERY);
 console.log(gifts);
 </script>
