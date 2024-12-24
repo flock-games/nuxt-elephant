@@ -44,8 +44,11 @@ const assignGift = async (giftId: string, isSteal: boolean) => {
     .inc({ numTimesStolen: isSteal ? 1 : 0 })
     .commit();
 
+  console.log(updatedGift);
+
   const giftIndex = gifts.value?.findIndex((gift: any) => gift._id === giftId);
   if (giftIndex) {
+    console.log("DONE UPDATING");
     gifts.value![giftIndex] = updatedGift;
   }
 };
@@ -54,7 +57,7 @@ const userFromId = (id: string) =>
   users.value?.find((user: any) => user._id === id);
 
 const giftForUser = (user: any) =>
-  gifts.value?.find((gift: any) => gift.owner === user._id);
+  gifts.value?.find((gift: any) => gift.owner?._ref === user._id);
 </script>
 
 <template>
