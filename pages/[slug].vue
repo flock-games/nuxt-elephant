@@ -21,7 +21,6 @@ const { data: users } = await useSanityQuery<SanityDocument[]>(
 const MAX_STEALS = 3;
 
 const gifts = ref(users.value?.map((user: any) => user.broughtGift));
-console.log(gifts.value);
 
 const isGameOver = computed(() => currentPlayer.value === undefined);
 
@@ -47,13 +46,11 @@ const assignGift = async (giftId: string, isSteal: boolean) => {
     .inc({ numTimesStolen: isSteal ? 1 : 0 })
     .commit();
 
-  console.log(updatedGift);
-
-  console.log(giftId);
-  const giftIndex = gifts.value?.findIndex((gift: any) => gift._id === giftId);
-  if (giftIndex) {
-    console.log("DONE UPDATING");
+  const giftIndex = gifts.value?.findIndex((gift: any) => gift._id == giftId);
+  if (giftIndex !== undefined) {
     gifts.value![giftIndex] = updatedGift;
+  } else {
+    console.error("Gift not found", giftId, gifts.value);
   }
 };
 
