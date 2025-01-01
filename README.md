@@ -13,3 +13,5 @@ For now, the Sanity admin tools made it easy to populate with sample data so I c
 > npm install
 
 > npm run dev
+
+To use this with your own Sanity project, update `nuxt.config.ts` with your project's `projectId` and define a `SANITY_API_TOKEN` in your `.env` file.
