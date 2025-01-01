@@ -54,6 +54,18 @@ const assignGift = async (giftId: string, isSteal: boolean) => {
   }
 };
 
+const resetGame = async () => {
+  const promises = gifts.value?.map(async (gift: any) => {
+    return await sanity.client
+      .patch(gift._id)
+      .set({ owner: null, numTimesStolen: 0 })
+      .commit();
+  });
+  await Promise.all(promises ?? []);
+  // Refresh the page because we're too lazy to update the data the right way
+  location.reload();
+};
+
 const userFromId = (id: string) =>
   users.value?.find((user: any) => user._id === id);
 
@@ -71,7 +83,15 @@ const giftForUser = (user: any) =>
         {{ game.name }}
       </h1>
 
-      <h2 v-if="isGameOver" class="text-xl font-semibold">Game over!</h2>
+      <div v-if="isGameOver" class="mb-8">
+        <h1 class="text-xl font-semibold mb-2">Game over!</h1>
+        <button
+          @click="resetGame"
+          class="bg-red-500 text-white px-2 py-1 rounded"
+        >
+          Reset Game
+        </button>
+      </div>
 
       <div class="flex w-full">
         <ul
