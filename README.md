@@ -1,75 +1,15 @@
-# Nuxt UI Minimal Starter
+# White Elephant Nuxt App
 
-Look at [Nuxt docs](https://nuxt.com/docs/getting-started/introduction) and [Nuxt UI docs](https://ui.nuxt.com) to learn more.
+This project was built in 4(ish) hours for the [Learn With Jason Hackathon 10](https://www.learnwithjason.dev/blog/web-dev-challenge-hackathon-s1e10-workshop-woes).
 
-## Setup
+The challenge was to build an app using [Sanity](https://www.sanity.io/) to help Santa in the busy Christmas season.
 
-Make sure to install the dependencies:
+This app is a very simple gameplay demo of a white elephant using data stored and managed by a Sanity Content Lake. In its hackathon form, a single user would act as the host. A multiplayer version with live data for all users would be the natural extension, complete with auth. 
 
-```bash
-# npm
-npm install
+A pre-event phase of configuring the game and allowing users to submit their gifts would be fun, too.
 
-# pnpm
-pnpm install
+For now, the Sanity admin tools made it easy to populate with sample data so I could focus on the core loop of unwrapping gifts, stealing, and the general Christmas angst only white elephants can provide.
 
-# yarn
-yarn install
+> npm install
 
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+> npm run dev
